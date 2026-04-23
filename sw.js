@@ -6,7 +6,7 @@ importScripts("./uv/uv.sw.js");
 // trying to hard block the new adblock.turtlecute.org scripts (fakeads)
 const { ScramjetServiceWorker } = $scramjetLoadWorker();
 const scramjet = new ScramjetServiceWorker();
-const uv = new UVServiceWorker();
+const uvServiceWorker = new UVServiceWorker();
 
 const hardBlockedAdKeywords = [
 	"adblock.turtlecute.org/js/pagead.js",
@@ -279,7 +279,7 @@ async function handleRequest(event) {
 	}
 
 	if (isUvRequest(event.request.url)) {
-		return uv.fetch(event);
+		return uvServiceWorker.fetch(event);
 	}
 
 	if (isScramjetRequest(event.request.url) || isScramjetWasmRequest(event.request.url)) {
